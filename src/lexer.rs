@@ -59,12 +59,23 @@ impl Lexer {
         Token::new(INT_LITERAL_TOKEN, word)
     }
 
+    fn eat_whitespace(&mut self) {
+        while self.ch.is_whitespace() {
+            self.read_char();
+        }
+    }
+
     pub fn next_token(&mut self) -> Token {
+        self.eat_whitespace();
+
         let token = match self.ch {
             '+' => Token::new(PLUS_TOKEN, "+".to_string()),
             '-' => Token::new(MINUS_TOKEN, "-".to_string()),
             '*' => Token::new(STAR_TOKEN, "*".to_string()),
             '/' => Token::new(SLASH_TOKEN, "/".to_string()),
+
+            '<' => Token::new(LESS_THAN_TOKEN, "<".to_string()),
+            '>' => Token::new(GREATER_THAN_TOKEN, ">".to_string()),
 
             '(' => Token::new(OPEN_PAREN_TOKEN, "(".to_string()),
             ')' => Token::new(CLOSE_PAREN_TOKEN, ")".to_string()),
@@ -73,19 +84,29 @@ impl Lexer {
 
             ',' => Token::new(COMMA_TOKEN, ",".to_string()),
             ';' => Token::new(SEMI_COLON_TOKEN, ";".to_string()),
-
-            '=' => Token::new(EQUAL_TOKEN, "=".to_string()),
             '\0' => Token::new(EOF, "\0".to_string()),
 
+            '=' => {
+                if self.peek() == '=' {
+                    self.read_char(); // consume a token
+                    Token::new(EQUAL_EQUAL_TOKEN, "==".to_string())
+                } else {
+                    Token::new(EQUAL_TOKEN, "=".to_string())
+                }
+            }
+            '!' => {
+                if self.peek() == '=' {
+                    self.read_char(); // consume a token
+                    Token::new(BANG_EQUAL_TOKEN, "!=".to_string())
+                } else {
+                    Token::new(BANG_TOKEN, "!".to_string())
+                }
+            }
             _ => {
                 if self.ch.is_alphabetic() || self.ch == '_' {
                     self.read_identifier()
                 } else if self.ch.is_numeric() {
                     self.read_number()
-                } else if self.ch.is_whitespace() {
-                    // skip whitespace and get the next token
-                    self.read_char();
-                    return self.next_token();
                 } else {
                     Token::new(ILLEGAL, self.ch.to_string())
                 }
