@@ -1,5 +1,6 @@
 use crate::prelude::Token;
 use crate::prelude::TokenType::*;
+use crate::syntax::tokens::identifier_lookup;
 
 pub struct Lexer {
     input: String,
@@ -45,12 +46,7 @@ impl Lexer {
             self.read_char();
             word.push(self.ch);
         }
-
-        match &word[..] {
-            "let" => Token::new(LET_KEYWORD_TOKEN, word),
-            "fn" => Token::new(FUNC_KEYWORD_TOKEN, word),
-            _ => Token::new(IDENTIFIER_TOKEN, word),
-        }
+        Token::new(identifier_lookup(&word[..]), word)
     }
 
     fn read_number(&mut self) -> Token {

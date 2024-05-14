@@ -1,12 +1,17 @@
+use crate::prelude::TokenType::*;
+
 #[derive(Debug)]
 pub struct Token {
     pub token_type: TokenType,
-    pub literal: String
+    pub literal: String,
 }
 
 impl Token {
     pub fn new(token_type: TokenType, literal: String) -> Self {
-        Token { token_type, literal }
+        Token {
+            token_type,
+            literal,
+        }
     }
 }
 
@@ -41,4 +46,12 @@ pub enum TokenType {
     IDENTIFIER_TOKEN,
     INT_LITERAL_TOKEN,
     FUNC_KEYWORD_TOKEN,
+}
+
+pub(crate) fn identifier_lookup(identifier: &str) -> TokenType {
+    match identifier {
+        "fn" => FUNC_KEYWORD_TOKEN,
+        "let" => LET_KEYWORD_TOKEN,
+        _ => IDENTIFIER_TOKEN,
+    }
 }
