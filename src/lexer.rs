@@ -41,7 +41,7 @@ impl Lexer {
 
     fn read_identifier(&mut self) -> Token {
         let mut word = self.ch.to_string();
-        while self.peek().is_alphabetic() {
+        while self.next_token_in_identifier() {
             self.read_char();
             word.push(self.ch);
         }
@@ -82,7 +82,7 @@ impl Lexer {
             '\0' => Token::new(EOF, "\0".to_string()),
 
             _ => {
-                if self.ch.is_alphabetic() {
+                if self.ch.is_alphabetic() || self.ch == '_' {
                     self.read_identifier()
                 } else if self.ch.is_numeric() {
                     self.read_number()
@@ -97,5 +97,10 @@ impl Lexer {
         };
         self.read_char();
         token
+    }
+
+    fn next_token_in_identifier(&self) -> bool {
+        let c = self.peek();
+        c.is_alphanumeric() || c.is_numeric() || c == '_'
     }
 }

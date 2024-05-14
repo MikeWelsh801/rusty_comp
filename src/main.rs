@@ -1,5 +1,5 @@
 use std::io::{self, Write};
-use compiler::prelude::Lexer;
+use compiler::{prelude::Lexer, print_tokens};
 
 fn main() {
     // main repl
@@ -16,6 +16,8 @@ fn main() {
         // take in user input unless there's an error
         if let Ok(_) = io::stdin().read_line(&mut buf) {
             lexer.lex(&buf);
+            print_tokens(&mut lexer);
+            buf.clear();
         } else {
             panic!("Oh no!!! Error: Bad input");
         }
