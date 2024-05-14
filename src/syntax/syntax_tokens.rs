@@ -4,6 +4,12 @@ pub struct Token {
     pub literal: String
 }
 
+impl Token {
+    pub fn new(token_type: TokenType, literal: String) -> Self {
+        Token { token_type, literal }
+    }
+}
+
 #[derive(Debug, PartialEq)]
 #[allow(non_camel_case_types)]
 pub enum TokenType {
@@ -29,7 +35,10 @@ pub enum TokenType {
 
     // assign
     EQUAL_TOKEN,
+
+    // literals and keywords
     LET_KEYWORD_TOKEN,
-    IDENTIFIER_TOKEN(String),
-    INTEGER(i32)
+    IDENTIFIER_TOKEN,
+    INT_LITERAL_TOKEN,
+    FUNC_KEYWORD_TOKEN,
 }

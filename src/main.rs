@@ -6,6 +6,7 @@ fn main() {
     println!("Welcome type a command!");
 
     let mut lexer = Lexer::new();
+    let mut buf = String::new();
 
     loop {
         // print the command line
@@ -13,12 +14,10 @@ fn main() {
         io::stdout().flush().unwrap();
 
         // take in user input unless there's an error
-        let mut buf = String::new();
         if let Ok(_) = io::stdin().read_line(&mut buf) {
             lexer.lex(&buf);
-            lexer.print_tokens();
         } else {
-            panic!("Oh no!!!");
+            panic!("Oh no!!! Error: Bad input");
         }
     }
 }
