@@ -8,6 +8,7 @@ pub trait Statement: SyntaxNode + fmt::Debug {
     fn statement_node(&self) {
         println!("Statement: {{ {} }}", self.token_literal());
     }
+
     fn as_any(&self) -> &dyn Any;
 }
 

@@ -1,20 +1,21 @@
-mod syntax_tokens;
 mod ast;
-mod program;
-mod let_statement;
 mod identifier;
+mod let_statement;
+mod program;
+mod return_statement;
+mod syntax_tokens;
 
 pub(crate) mod tokens {
-    pub use crate::syntax::syntax_tokens::Token;
-    pub use crate::syntax::syntax_tokens::TokenType;
     pub(crate) use crate::syntax::syntax_tokens::identifier_lookup;
+    pub use crate::syntax::syntax_tokens::{Token, TokenType};
 }
 
 pub mod syntax_nodes {
-    pub use crate::syntax::program::Program;
-    pub use crate::syntax::ast::Statement;
-    pub use crate::syntax::ast::Expression;
-    pub use crate::syntax::let_statement::LetStatement;
-    pub use crate::syntax::identifier::Identifier;
+    pub use crate::syntax::{
+        ast::{Expression, Statement, SyntaxNode},
+        identifier::Identifier,
+        let_statement::LetStatement,
+        program::Program,
+        return_statement::ReturnStatement,
+    };
 }
-

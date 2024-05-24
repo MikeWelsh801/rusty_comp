@@ -1,12 +1,12 @@
-mod syntax;
 mod eval;
+mod syntax;
 
 pub mod prelude {
-    pub use crate::eval::lex::Lexer;
-    pub use crate::eval::parse::Parser;
-    pub use crate::syntax::tokens::Token;
-    pub use crate::syntax::tokens::TokenType;
-    pub use crate::syntax::syntax_nodes::*;
+    pub use crate::eval::{lex::Lexer, parse::Parser};
+    pub use crate::syntax::{
+        syntax_nodes::*,
+        tokens::{Token, TokenType},
+    };
 }
 
 use prelude::Lexer;
