@@ -2,8 +2,8 @@ use super::ast::Statement;
 use super::ast::SyntaxNode;
 
 #[derive(Debug)]
-pub(crate) struct Program {
-    statements: Vec<Box<dyn Statement>>
+pub struct Program {
+    pub statements: Vec<Box<dyn Statement>>,
 }
 
 impl SyntaxNode for Program {
@@ -12,5 +12,15 @@ impl SyntaxNode for Program {
             return String::from("");
         }
         self.statements[0].token_literal()
+    }
+}
+
+impl Program {
+    pub fn new() -> Self {
+        Program { statements: vec![] }
+    }
+
+    pub(crate) fn add_statement(&mut self, s: Box<dyn Statement>) {
+        self.statements.push(s);
     }
 }
