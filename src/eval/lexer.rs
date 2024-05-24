@@ -23,7 +23,7 @@ impl Lexer {
         self.position = 0;
     }
 
-    fn peek(&self) -> char {
+    pub fn peek(&self) -> char {
         if self.position >= self.input.len() - 1 {
             return '\0';
         }
