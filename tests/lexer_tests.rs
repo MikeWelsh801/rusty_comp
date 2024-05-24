@@ -42,7 +42,6 @@ fn lexer_lexes_single_tokens() {
 
     expeted_types.iter().for_each(|expected| {
         let actual = lexer.next_token();
-        println!("{:?}", actual);
         assert_eq!(actual.token_type, expected.token_type);
         assert_eq!(actual.literal, expected.literal);
     })
@@ -64,7 +63,6 @@ fn lexer_lexes_illegal_token() {
 
     expeted_types.iter().for_each(|expected| {
         let actual = lexer.next_token();
-        println!("{:?}", actual);
         assert_eq!(actual.token_type, expected.token_type);
         assert_eq!(actual.literal, expected.literal);
     })
@@ -126,7 +124,6 @@ fn lexer_lexes_complex_tokens() {
 
     expeted_types.iter().for_each(|expected| {
         let actual = lexer.next_token();
-        println!("{:?}", actual);
         assert_eq!(actual.token_type, expected.token_type);
         assert_eq!(actual.literal, expected.literal);
     })
@@ -156,7 +153,6 @@ fn lexer_lexes_single_token_boolean_logic() {
 
     expeted_types.iter().for_each(|expected| {
         let actual = lexer.next_token();
-        println!("{:?}", actual);
         assert_eq!(actual.token_type, expected.token_type);
         assert_eq!(actual.literal, expected.literal);
     })
@@ -192,7 +188,6 @@ fn lexer_lexes_conditional_keywords() {
 
     expeted_types.iter().for_each(|expected| {
         let actual = lexer.next_token();
-        println!("{:?}", actual);
         assert_eq!(actual.token_type, expected.token_type);
         assert_eq!(actual.literal, expected.literal);
     })
@@ -221,7 +216,6 @@ fn lexr_lexes_two_token_booleans() {
 
     expeted_types.iter().for_each(|expected| {
         let actual = lexer.next_token();
-        println!("{:?}", actual);
         assert_eq!(actual.token_type, expected.token_type);
         assert_eq!(actual.literal, expected.literal);
     })

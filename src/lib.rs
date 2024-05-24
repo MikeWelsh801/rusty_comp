@@ -6,6 +6,7 @@ pub mod prelude {
     pub use crate::eval::parse::Parser;
     pub use crate::syntax::tokens::Token;
     pub use crate::syntax::tokens::TokenType;
+    pub use crate::syntax::syntax_nodes::*;
 }
 
 use prelude::Lexer;

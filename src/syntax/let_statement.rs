@@ -1,15 +1,18 @@
+use std::any::Any;
+
 use super::{
     ast::SyntaxNode,
-    syntax_nodes::{Expression, Statement},
+    syntax_nodes::{Expression, Statement, Identifier},
     syntax_tokens::{Token, TokenType::*},
 };
 
 #[derive(Debug)]
-pub(crate) struct LetStatement {
+pub struct LetStatement {
     let_keyword: Token,
     identifier: Identifier,
     value: Box<dyn Expression>,
 }
+
 impl LetStatement {
     pub fn new(identifier: Token, value: Box<dyn Expression>) -> Self {
         LetStatement {
@@ -18,31 +21,19 @@ impl LetStatement {
             value,
         }
     }
+
+    pub fn identifier(&self) -> &str {
+        self.identifier.name()
+    }
 }
 
-impl Statement for LetStatement {}
+impl Statement for LetStatement {
+    fn as_any(&self) -> &dyn Any {
+        self
+    }
+}
 impl SyntaxNode for LetStatement {
     fn token_literal(&self) -> String {
         self.let_keyword.literal.clone()
-    }
-}
-
-#[derive(Debug)]
-pub(crate) struct Identifier {
-    token: Token,
-    value: String,
-}
-
-impl Identifier {
-    fn new(token: Token) -> Self {
-        let value = token.literal.clone();
-        Identifier { token, value }
-    }
-}
-
-impl Expression for Identifier {}
-impl SyntaxNode for Identifier {
-    fn token_literal(&self) -> String {
-        self.token.literal.clone()
     }
 }
