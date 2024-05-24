@@ -101,10 +101,13 @@ impl<'a> Parser<'a> {
         while !self.curr_token_is(SEMI_COLON_TOKEN) {
             self.next_token();
         }
+
+        // TODO: Implement expressin parsing
         // match self.parse_expression() {
         //     Some(expression) => Some(Box::from(LetStatement::new(name, expression))),
         //     None => None,
         // }
+
         let value = Token::new(
             self.curr_token.token_type.clone(),
             self.curr_token.literal.clone(),
